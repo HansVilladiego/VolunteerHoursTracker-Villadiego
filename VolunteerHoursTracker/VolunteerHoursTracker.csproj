@@ -11,12 +11,21 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\VolunteerHoursTracker.Infrastructure\VolunteerHoursTracker.Infrastructure.csproj" />
+    <ProjectReference Include="..\VolunteerHoursTracker.Services\VolunteerHoursTracker.Services.csproj" />
   </ItemGroup>
 
 </Project>
