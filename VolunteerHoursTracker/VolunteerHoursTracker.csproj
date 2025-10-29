@@ -22,10 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\VolunteerHoursTracker.Infrastructure\VolunteerHoursTracker.Infrastructure.csproj" />
     <ProjectReference Include="..\VolunteerHoursTracker.Services\VolunteerHoursTracker.Services.csproj" />
   </ItemGroup>
