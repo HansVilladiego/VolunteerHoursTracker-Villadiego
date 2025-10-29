@@ -1,0 +1,95 @@
+﻿@model VolunteerHoursTracker.ViewModels.TopVolunteersViewModel
+
+@{
+    ViewData["Title"] = "Top Volunteers";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <h2><i class="bi bi-trophy-fill text-warning"></i> @ViewData["Title"]</h2>
+            <hr />
+
+            @if (User.Identity?.IsAuthenticated == true && Model.CurrentUserTotalHours > 0)
+            {
+                <div class="alert alert-info" role="alert">
+                    <h5>Your Stats</h5>
+                    <p class="mb-0">
+                        <strong>Total Hours:</strong> @Model.CurrentUserTotalHours.ToString("F2") hours<br />
+                        <strong>Your Rank:</strong> #@Model.CurrentUserRank
+                    </p>
+                </div>
+            }
+
+            @if (Model.TopVolunteers != null && Model.TopVolunteers.Any())
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 10%">Rank</th>
+                                    <th style="width: 60%">Volunteer Name</th>
+                                    <th style="width: 30%">Total Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int rank = 1;
+                                    foreach (var volunteer in Model.TopVolunteers.OrderByDescending(v => v.Value))
+                                    {
+                                        var rowClass = "";
+                                        var medal = "";
+
+                                        if (rank == 1)
+                                        {
+                                            rowClass = "table-warning";
+                                            medal = "🥇";
+                                        }
+                                        else if (rank == 2)
+                                        {
+                                            rowClass = "table-light";
+                                            medal = "🥈";
+                                        }
+                                        else if (rank == 3)
+                                        {
+                                            rowClass = "table-secondary";
+                                            medal = "🥉";
+                                        }
+
+                                        <tr class="@rowClass">
+                                            <td><strong>@medal #@rank</strong></td>
+                                            <td>@volunteer.Key</td>
+                                            <td><strong>@volunteer.Value.ToString("F2") hours</strong></td>
+                                        </tr>
+
+                                        rank++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No volunteer hours logged yet!</h4>
+                    <p>Be the first to log your volunteer hours and appear on the leaderboard!</p>
+                </div>
+            }
+
+            <div class="mt-3">
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-action="Index" class="btn btn-primary">My Hours</a>
+                }
+                else
+                {
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary">Login to Track Hours</a>
+                }
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
