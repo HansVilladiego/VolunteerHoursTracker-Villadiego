@@ -1,8 +1,73 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Volunteer Hours Tracker";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Volunteer Hours Tracker</h1>
+    <p class="lead">Track your volunteer work and see how you compare with other volunteers!</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-clock-history display-1 text-primary"></i>
+                    <h5 class="card-title mt-3">Log Your Hours</h5>
+                    <p class="card-text">Keep track of all your volunteer activities and hours worked.</p>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="VolunteerLog" asp-action="Create" class="btn btn-primary">Log Hours Now</a>
+                    }
+                    else
+                    {
+                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary">Get Started</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-bar-chart-fill display-1 text-success"></i>
+                    <h5 class="card-title mt-3">Track Progress</h5>
+                    <p class="card-text">View your volunteer history and see your total hours contributed.</p>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <a asp-controller="VolunteerLog" asp-action="Index" class="btn btn-success">View My Hours</a>
+                    }
+                    else
+                    {
+                        <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-success">Login</a>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <i class="bi bi-trophy-fill display-1 text-warning"></i>
+                    <h5 class="card-title mt-3">See Top Volunteers</h5>
+                    <p class="card-text">Check out the leaderboard and see who's making the biggest impact!</p>
+                    <a asp-controller="VolunteerLog" asp-action="Leaderboard" class="btn btn-warning">View Leaderboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (User.Identity?.IsAuthenticated != true)
+    {
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div class="alert alert-info text-center" role="alert">
+                    <h4 class="alert-heading">Ready to make a difference?</h4>
+                    <p>Join our community of volunteers today and start tracking your impact!</p>
+                    <hr>
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-lg btn-primary">Register Now</a>
+                </div>
+            </div>
+        </div>
+    }
 </div>
